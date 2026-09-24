@@ -199,7 +199,7 @@ function makeTable(container, opts={}){
     const api={state:opts.state,adProgress:1,refresh(p){ if(p!=null) api.adProgress=p; drawDesign(cv,api.state,api.adProgress); },setDesignOpacity(){},setProps(){},setCamera(){},setRot(){},setIdle(){},running:true};
     api.refresh(1); return api; }
   const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
-  renderer.setPixelRatio(Math.min(devicePixelRatio,2)); renderer.outputEncoding=THREE.sRGBEncoding; renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.02;
+  renderer.setPixelRatio(Math.min(devicePixelRatio,innerWidth<640?1.5:2)); renderer.outputEncoding=THREE.sRGBEncoding; renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.02;
   renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap; container.appendChild(renderer.domElement); renderer.domElement.setAttribute('role','img'); renderer.domElement.setAttribute('aria-label',opts.label||'Interactive 3D restaurant table. Drag to rotate.');
   const scene=new THREE.Scene(), camera=new THREE.PerspectiveCamera(32,1,.1,50); camera.position.set(0,2.6,4.6);
   const key=new THREE.SpotLight(0xfff1dc,2.1,20,Math.PI/5,.6,1); key.position.set(1.5,5,2); key.castShadow=true; key.shadow.mapSize.set(2048,2048); key.shadow.bias=-.0005; scene.add(key);
@@ -210,7 +210,7 @@ function makeTable(container, opts={}){
   if(opts.room){ roomGroup=buildRoom(scene,renderer); renderer.setClearColor(0x2b1e18,1); renderer.toneMappingExposure=.82; key.intensity=.8; key.angle=Math.PI/6; key.color.set(0xffdcb0); key.penumbra=.8; scene.children.filter(o=>o.isHemisphereLight).forEach(h=>{h.intensity=.22;h.color.set(0xb9a48c);h.groundColor.set(0x3a2a20);});
     if(THREE.EffectComposer&&THREE.UnrealBloomPass){ composer=new THREE.EffectComposer(renderer); composer.addPass(new THREE.RenderPass(scene,camera)); const bloom=new THREE.UnrealBloomPass(new THREE.Vector2(512,512),.1,.5,.985); composer.addPass(bloom); }
     renderer.domElement.classList.add('room-layer');
-    tableRenderer=new THREE.WebGLRenderer({antialias:true,alpha:true}); tableRenderer.setPixelRatio(Math.min(devicePixelRatio,2)); tableRenderer.outputEncoding=THREE.sRGBEncoding; tableRenderer.toneMapping=THREE.ACESFilmicToneMapping; tableRenderer.toneMappingExposure=.95; tableRenderer.shadowMap.enabled=true; tableRenderer.shadowMap.type=THREE.PCFSoftShadowMap; tableRenderer.setClearColor(0x000000,0);
+    tableRenderer=new THREE.WebGLRenderer({antialias:true,alpha:true}); tableRenderer.setPixelRatio(Math.min(devicePixelRatio,innerWidth<640?1.5:2)); tableRenderer.outputEncoding=THREE.sRGBEncoding; tableRenderer.toneMapping=THREE.ACESFilmicToneMapping; tableRenderer.toneMappingExposure=.95; tableRenderer.shadowMap.enabled=true; tableRenderer.shadowMap.type=THREE.PCFSoftShadowMap; tableRenderer.setClearColor(0x000000,0);
     tableRenderer.domElement.classList.add('table-layer'); container.appendChild(tableRenderer.domElement); }
   else { const floor=new THREE.Mesh(new THREE.CircleGeometry(4,64),new THREE.ShadowMaterial({opacity:opts.dark?.45:.2})); floor.rotation.x=-Math.PI/2; floor.position.y=-1.2; floor.receiveShadow=true; scene.add(floor); }
   const metal=new THREE.MeshStandardMaterial({color:0x2b2b2b,metalness:.9,roughness:.3});
