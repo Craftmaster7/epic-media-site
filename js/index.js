@@ -7,7 +7,7 @@ let adHost=null, mode='table', seat='restaurant';
 let hero,how,des;
 Promise.all([loadImg('logo',ASSETS.logo),loadImg('mark',ASSETS.mark),loadImg('paper',ASSETS.paper),loadImg('wood',ASSETS.wood),loadImg('gray',ASSETS.gray),loadImg('walnut',ASSETS.walnut),loadImg('oak',ASSETS.oak),loadImg('espresso',ASSETS.espresso)]).then(()=>{
   emnState.logoImg=IMG.logo; adHost=Object.assign({},emnState,{userAd:adState});
-  hero=makeTable(document.getElementById('heroScene'),{rot:.4,state:emnState,shift:.14,room:true}); hero.setCamera(0,2.3,5.4);
+  hero=makeTable(document.getElementById('heroScene'),{rot:.4,state:emnState,shift:.14,room:true}); hero.setCamera(...(innerWidth<640?[0,3.4,8.2]:[0,2.3,5.4]));
   how=makeTable(document.getElementById('howScene'),{rot:.6,idle:false,state:emnState,shift:-.2});
   des=makeTable(document.getElementById('designerScene'),{rot:.2,state:userState,dark:true}); 
   document.fonts.ready.then(()=>{hero.refresh();how.refresh();refreshUser();}); setTimeout(()=>{hero.refresh();how.refresh();refreshUser();},900);
@@ -18,7 +18,7 @@ Promise.all([loadImg('logo',ASSETS.logo),loadImg('mark',ASSETS.mark),loadImg('pa
 function applySeat(sv,setHash=true){ seat=sv;
   document.querySelectorAll('#seatToggle button,#contactToggle button').forEach(b=>b.classList.toggle('active',b.dataset.seat===sv));
   document.querySelectorAll('.swap>div,.next-set').forEach(d=>d.classList.toggle('on',d.dataset.seat===sv));
-  if(hero){ if(sv==='restaurant'){ hero.setCamera(0,2.3,5.4); hero.setRot(.4);} else { hero.setCamera(-2.4,1.5,3.6); hero.setRot(2.2);} }
+  if(hero){ const m=innerWidth<640; if(sv==='restaurant'){ hero.setCamera(...(m?[0,3.4,8.2]:[0,2.3,5.4])); hero.setRot(.4);} else { hero.setCamera(...(m?[-3.2,2.4,7.4]:[-2.4,1.5,3.6])); hero.setRot(2.2);} }
   setMode(sv==='restaurant'?'table':'ad');
   if(setHash){ try{ history.replaceState(null,'',sv==='restaurant'?'#restaurants':'#advertisers'); }catch(e){} }
   document.querySelectorAll('.seat-only').forEach(d=>d.classList.toggle('on',d.dataset.seat===sv));
@@ -78,7 +78,7 @@ function updateHow(){ if(!how) return; if(REDUCED){ how.setDesignOpacity(1); how
   if(seg===1){ how.setDesignOpacity(local); how.setProps(false); how.refresh(0); }
   if(seg===2){ how.setDesignOpacity(1); how.setProps(local>.6); how.refresh(local); }
   if(seg===3){ how.setDesignOpacity(1); how.setProps(true); how.refresh(1); }
-  how.setCamera(...cams[seg]); how.setRot(.6+p*2.4);
+  const mc=innerWidth<640?cams[seg].map((v,k)=>k===0?v:v*1.55):cams[seg]; how.setCamera(...mc); how.setRot(.6+p*2.4);
 }
 addEventListener('scroll',updateHow,{passive:true});
 
