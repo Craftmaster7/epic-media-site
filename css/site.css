@@ -353,3 +353,98 @@ footer .fbot a{color:rgba(250,246,239,.7)}
 .sample b{position:absolute;left:0;right:0;bottom:0;font-size:9px;font-weight:700;letter-spacing:.04em;background:rgba(20,17,16,.7);color:#fff;padding:2px 4px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #panSearch{margin-bottom:10px}
 @media(max-width:960px){.catalog{grid-template-columns:repeat(4,1fr)}.catalog.pan{grid-template-columns:repeat(6,1fr)}}
+
+/* ===== mobile (phones) ===== */
+html,body{overflow-x:hidden}
+@media(max-width:640px){
+  .wrap{padding:0 20px}
+  nav{padding:12px 20px}
+  nav ul{top:69px}
+  .hero-copy{padding:104px 20px 0;max-width:none;text-shadow:none}
+  .hero-copy h1{font-size:clamp(46px,13vw,64px);margin:16px 0 18px}
+  .hero-copy p.lead{font-size:16px;margin-bottom:22px}
+  .eyebrow{font-size:10px;letter-spacing:.18em;flex-wrap:wrap}
+  .eyebrow::before,.eyebrow::after{width:20px}
+  .seat-toggle{display:grid;grid-template-columns:1fr;width:100%;margin-bottom:18px}
+  .seat-toggle button{padding:12px 14px;font-size:17px;text-align:center}
+  .swap{min-height:0}
+  .hero-ctas{flex-direction:column;gap:10px}
+  .hero-ctas .btn,.panel .btn,.form .btn{width:100%;justify-content:center;padding:14px 18px;font-size:16px}
+  .hero-note{font-size:11px;line-height:1.5;margin-top:14px}
+  .hero-3d{height:62vh;margin-top:20px}
+  .hero-3d canvas.room-layer{-webkit-mask-image:linear-gradient(#000 70%,transparent 96%)!important;mask-image:linear-gradient(#000 70%,transparent 96%)!important}
+  .hero-3d canvas.table-layer{-webkit-mask-image:none;mask-image:none}
+  .drag-hint{bottom:14px;font-size:10px}
+  section{padding:70px 0}
+  .sec-head h2{font-size:clamp(38px,11vw,54px)}
+  .sec-head p{font-size:15px}
+  .seats{gap:16px;margin-top:36px}
+  .seat{padding:26px 22px}
+  .seat h3{font-size:30px}
+  .seat p,.seat ul{font-size:14px}
+  .stats .wrap{grid-template-columns:1fr 1fr;gap:16px;padding-top:32px;padding-bottom:32px}
+  .stat b{font-size:40px}
+  .stat small{font-size:10px}
+  .step .num{width:40px;height:40px;font-size:20px}
+  .step h3{font-size:26px}
+  .step p{font-size:14px}
+  .designer .sec-head h2,.designer .sec-head{padding:0}
+  .mode{display:grid;grid-template-columns:1fr 1fr;width:100%;margin-top:28px}
+  .mode button{padding:12px 8px;font-size:15px;text-align:center}
+  .designer-grid{gap:28px;margin-top:32px}
+  .designer-3d{min-height:340px}
+  .panel{gap:18px}
+  .catalog{grid-template-columns:repeat(4,1fr);max-height:200px}
+  .catalog.pan{grid-template-columns:repeat(5,1fr)}
+  input.text{font-size:26px}
+  .panel .row2{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:1fr;gap:14px;margin-top:36px}
+  .gcard{aspect-ratio:3/2}
+  .gcard .cap h4{font-size:22px}
+  .pair{padding:16px;gap:12px}
+  .pair .arrow{font-size:16px}
+  .trust-grid{gap:16px;margin-top:36px}
+  .trust-card .big{font-size:56px}
+  .trust-card h3{font-size:26px}
+  .pull{font-size:22px;margin-top:40px}
+  .window{height:auto;min-height:0;padding:90px 0}
+  .window .txt{padding:0 20px;max-width:none}
+  .window .txt h2{font-size:clamp(36px,11vw,52px)}
+  .window .txt p{font-size:16px}
+  .window .txt .sig{font-size:22px}
+  .window .bg{inset:0;transform:none!important}
+  .gaze{display:none}
+  .contact-grid{gap:40px;margin-top:32px}
+  .form .row{grid-template-columns:1fr;gap:18px}
+  .form input.text{font-size:16px}
+  .toggle{width:100%;display:grid;grid-template-columns:1fr 1fr}
+  .toggle button{padding:10px 8px;font-size:11px;text-align:center}
+  .concept-preview{padding:12px 14px}
+  .next{border-left:0;padding-left:0;border-top:1px solid var(--navy-15);padding-top:30px}
+  .next h4{font-size:26px}
+  .next .phone{font-size:30px}
+  footer{padding:44px 0 28px}
+  footer .wrap{grid-template-columns:1fr;gap:26px}
+  footer .fabout p{max-width:none}
+  footer .fbot{flex-direction:column;gap:8px;line-height:1.8}
+  .page-hero{padding:100px 0 40px}
+  .page-hero h1{font-size:clamp(42px,12vw,60px)}
+  .page-hero p.lead{font-size:16px}
+  .page-hero .scene{height:360px}
+  .page-hero .scene canvas.room-layer{-webkit-mask-image:linear-gradient(#000 70%,transparent 96%)!important;mask-image:linear-gradient(#000 70%,transparent 96%)!important}
+  .steps4,.sizes,.actions,.values,.team{gap:14px;margin-top:32px}
+  .step4{padding:24px 20px}
+  .step4 h3{font-size:24px}
+  .vs>div{padding:26px 20px}
+  .vs h3{font-size:26px}
+  .size-card{padding:26px 20px}
+  .size-card .shape{height:90px}
+  .size-card .shape i{transform:scale(.75)}
+  .faq summary{font-size:20px;padding:16px 0}
+  .faq details p{font-size:15px}
+  .person{padding:18px}
+  .person h4{font-size:26px}
+  .about-grid{gap:28px;margin-top:32px}
+  .about-grid h3{font-size:30px}
+  .prose h2{font-size:26px}
+}
