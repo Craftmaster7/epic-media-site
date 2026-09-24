@@ -49,10 +49,13 @@ document.querySelectorAll('#contactToggle button').forEach(b=>b.addEventListener
 document.querySelectorAll('.filters .chip').forEach(b=>b.addEventListener('click',()=>{ document.querySelectorAll('.filters .chip').forEach(x=>x.classList.toggle('active',x===b)); const f=b.dataset.f;
   document.querySelectorAll('.gcard').forEach(c=>{ c.hidden=!(f==='all'||(c.dataset.tags||'').split(' ').includes(f)); }); }));
 
-/* ---------- background catalogs: wood samples + Pantone ---------- */
-(function(){
+/* ---------- background catalogs: wood samples + Pantone (loaded only when the customizer is near) ---------- */
+function loadCatalog(){ if(window.WOOD_CODES) return Promise.resolve(); if(window._catP) return window._catP; return window._catP=new Promise(r=>{ const s=document.createElement('script'); s.src='js/catalog.js?v=4'; s.onload=r; document.body.appendChild(s); }); }
+(function(){ const d=document.getElementById('designer'); if(!d) return; const io=new IntersectionObserver(es=>{ if(es.some(e=>e.isIntersecting)){ io.disconnect(); loadCatalog().then(initCatalog); } },{rootMargin:'900px 0px'}); io.observe(d);
+  const bgs=document.getElementById('bgs'); if(bgs) bgs.addEventListener('click',()=>loadCatalog().then(initCatalog),{once:true}); })();
+function initCatalog(){
   const wg=document.getElementById('woodGrid'), pg=document.getElementById('panGrid'), bgs=document.getElementById('bgs');
-  if(!wg||!window.WOOD_CODES) return;
+  if(!wg||!window.WOOD_CODES||wg.dataset.ready) return; wg.dataset.ready='1';
   const woodCat=document.getElementById('woodCat'), panCat=document.getElementById('panCat');
   function lum(hex){ const n=parseInt(hex.slice(1),16); return (((n>>16)*299+((n>>8)&255)*587+(n&255)*114)/1000); }
   function imgLum(im){ const c=document.createElement('canvas'); c.width=c.height=16; const x=c.getContext('2d'); x.drawImage(im,0,0,16,16); const d=x.getImageData(0,0,16,16).data; let s=0; for(let i=0;i<d.length;i+=4) s+=(d[i]*299+d[i+1]*587+d[i+2]*114)/1000; return s/(d.length/4); }
@@ -72,4 +75,4 @@ document.querySelectorAll('.filters .chip').forEach(b=>b.addEventListener('click
   bgs.addEventListener('click',e=>{ const b=e.target.closest('.chip'); if(!b) return; const v=b.dataset.bg; showCat(v);
     if(v==='paper'){ userState.bg='paper'; userState.bgLabel='Cream paper'; [...bgs.children].forEach(x=>x.classList.toggle('active',x===b)); refreshUser(); }
     else { [...bgs.children].forEach(x=>x.classList.toggle('active',x===b)); if(v==='woodcat'&&!userState.bg.startsWith('wood:')){ wg.firstChild&&wg.firstChild.click(); } if(v==='pantone'&&!userState.bg.startsWith('pantone:')){ const first=[...pg.children].find(x=>x.dataset.n==='186')||pg.firstChild; first&&first.click(); } } },true);
-})();
+}
