@@ -9,7 +9,7 @@ const $=id=>document.getElementById(id);
 
 Promise.all([loadImg('logo',ASSETS.logo),loadImg('paper',ASSETS.paper),loadImg('wood',ASSETS.wood),loadImg('gray',ASSETS.gray),loadImg('walnut',ASSETS.walnut),loadImg('oak',ASSETS.oak),loadImg('espresso',ASSETS.espresso)]).then(()=>{
   emnState.logoImg=IMG.logo; adHost=Object.assign({},emnState,{userAd:adState});
-  const ps=$('pageScene'); if(ps){ pageScene=makeTable(ps,{rot:.4,state:mode==='ad'?emnState:userState,shift:.14,room:true}); pageScene.setCamera(0,2.3,5.4); }
+  const ps=$('pageScene'); if(ps){ pageScene=makeTable(ps,{rot:.4,state:mode==='ad'?emnState:userState,shift:.14,room:true}); pageScene.setCamera(...(innerWidth<640?[0,3.4,8.2]:[0,2.3,5.4])); }
   const ds=$('designerScene'); if(ds){ des=makeTable(ds,{rot:.2,state:mode==='ad'?adHost:userState,dark:true}); }
   document.fonts.ready.then(refreshUser); setTimeout(refreshUser,900);
 });
